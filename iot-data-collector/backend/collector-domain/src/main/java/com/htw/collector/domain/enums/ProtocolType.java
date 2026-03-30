@@ -1,10 +1,18 @@
 package com.htw.collector.domain.enums;
 
-/**
- * Supported industrial communication protocols.
- */
+import lombok.Getter;
+
+@Getter
 public enum ProtocolType {
-    OPC_UA,
-    MODBUS_TCP,
-    MQTT
+    OPCUA("OPCUA", "OPC-UA Protocol"),
+    MODBUS_TCP("MODBUS_TCP", "Modbus TCP Protocol"),
+    MQTT("MQTT", "MQTT Protocol");
+
+    private final String code;
+    private final String description;
+
+    ProtocolType(String code, String description) {
+        this.code = code;
+        this.description = description;
+    }
 }

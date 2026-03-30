@@ -1,32 +1,33 @@
-package com.htw.collector.infrastructure.persistence.entity;
+package com.htw.collector.domain.datapoint;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.htw.collector.domain.enums.DataPointType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
-@TableName("t_data_point")
-public class DataPointDO {
-    @TableId(type = IdType.AUTO)
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class DataPoint {
     private Long id;
     private Long dataSourceId;
     private String tagName;
     private String displayName;
     private String description;
-    private String dataType;
+    private DataPointType dataType;
     private String opcuaNodeId;
+    /** COIL / DISCRETE / INPUT_REGISTER / HOLDING_REGISTER */
     private String modbusRegisterType;
     private Integer modbusRegisterAddress;
     private String mqttTopic;
     private String mqttJsonPath;
-    private Integer sampleIntervalMs;
+    @Builder.Default
+    private Integer sampleIntervalMs = 1000;
     private Boolean enabled;
-    @TableLogic
-    private Integer deleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

@@ -1,16 +1,17 @@
-package com.htw.collector.infrastructure.persistence.entity;
+package com.htw.collector.domain.collecteddata;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
-@TableName("t_collected_data")
-public class CollectedDataDO {
-    @TableId(type = IdType.AUTO)
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class CollectedData {
     private Long id;
     private Long dataPointId;
     private String tagName;
@@ -19,6 +20,7 @@ public class CollectedDataDO {
     private Double numericValue;
     private String stringValue;
     private Boolean booleanValue;
+    /** 0=good, 1=uncertain, 2=bad */
     private Integer quality;
     private LocalDateTime collectedAt;
     private LocalDateTime createdAt;

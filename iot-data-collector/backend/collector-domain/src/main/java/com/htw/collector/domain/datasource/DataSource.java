@@ -1,20 +1,21 @@
-package com.htw.collector.infrastructure.persistence.entity;
+package com.htw.collector.domain.datasource;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.htw.collector.domain.enums.ProtocolType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
-@TableName("t_data_source")
-public class DataSourceDO {
-    @TableId(type = IdType.AUTO)
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class DataSource {
     private Long id;
     private String name;
-    private String protocolType;
+    private ProtocolType protocolType;
     private String host;
     private Integer port;
     private String opcuaEndpointUrl;
@@ -26,8 +27,6 @@ public class DataSourceDO {
     private String mqttPassword;
     private String description;
     private Boolean enabled;
-    @TableLogic
-    private Integer deleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: iot-collector-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: iot_collector
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-collector123}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: iot-collector-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: iot_collector
+      DB_USERNAME: postgres
+      DB_PASSWORD: ${DB_PASSWORD:-collector123}
+      BACKUP_DIR: /app/backups
+    ports:
+      - "8080:8080"
+    volumes:
+      - app_backups:/app/backups
+      - app_certs:/app/certs
+
+volumes:
+  postgres_data:
+  app_backups:
+  app_certs:
