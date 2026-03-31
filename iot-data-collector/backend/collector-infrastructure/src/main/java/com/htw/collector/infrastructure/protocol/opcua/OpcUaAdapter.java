@@ -18,6 +18,8 @@ import org.eclipse.milo.opcua.stack.core.types.structured.MonitoredItemCreateReq
 import org.eclipse.milo.opcua.stack.core.types.structured.MonitoringParameters;
 import org.eclipse.milo.opcua.stack.core.types.structured.ReadValueId;
 
+import org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.UInteger;
+
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
@@ -89,10 +91,10 @@ public class OpcUaAdapter implements ProtocolAdapterPort {
         ReadValueId readValueId = new ReadValueId(nodeId, AttributeId.Value.uid(), null, QualifiedName.NULL_VALUE);
 
         MonitoringParameters parameters = new MonitoringParameters(
-                CLIENT_HANDLE_COUNTER.getAndIncrement(),
+                UInteger.valueOf(CLIENT_HANDLE_COUNTER.getAndIncrement()),
                 (double) (point.getSampleIntervalMs() != null ? point.getSampleIntervalMs() : 1000),
                 null,
-                10,
+                UInteger.valueOf(10),
                 true
         );
 
