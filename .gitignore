@@ -1,0 +1,8 @@
+
+# Build artifacts
+**/target/
+iot-data-collector/frontend/node_modules/
+iot-data-collector/frontend/dist/
+
+# Maven settings (contains proxy credentials)
+.m2/settings.xml
